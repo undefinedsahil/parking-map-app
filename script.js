@@ -18,7 +18,7 @@ function onLocationFound(e) {
 
   spots.forEach((spot) => {
     const iconUrl = spot.status === "open"
-      ? "https://i.imgur.com/CwNDGoH.png"
+      ? "https://www.clker.com/cliparts/r/M/L/o/R/i/green-dot.svg"
       : "https://i.imgur.com/LULVkbO.png";
 
     const icon = L.icon({
