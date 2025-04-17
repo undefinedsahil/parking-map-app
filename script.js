@@ -1,29 +1,31 @@
-// Initialize the map and set initial view to a default zoom level
-const map = L.map('map').setView([28.6448, 77.1181], 13); // Initial map center (somewhere near Rajouri Garden, Delhi)
+// Initialize the map and set the default view to somewhere in Delhi (Rajouri Garden area).
+const map = L.map('map').setView([28.6448, 77.1181], 13); // Initial map center (near Rajouri Garden, Delhi)
 
 // Add OpenStreetMap tiles (free and public)
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 18,
 }).addTo(map);
 
-// Locate the user's location
-map.locate({ setView: true, maxZoom: 16 });
+// Function to locate and center the map to the user's location
+function locateUser() {
+  map.locate({ setView: true, maxZoom: 16 });
+}
 
-// Function to handle when the location is found
+// Handle when the location is found
 function onLocationFound(e) {
-  // Place the user's marker
+  // Place a marker for the user's current location
   const userMarker = L.marker(e.latlng).addTo(map);
   userMarker.bindPopup("📍 You are here").openPopup();
 
-  // Center map on the user's location
-  map.setView(e.latlng, 16); // Zoom into the user's location
+  // Center map to the user's location
+  map.setView(e.latlng, 16);  // Zoom to user's location
 
-  // Sample parking spot data
+  // Sample parking spot data with your given coordinates
   const spots = [
-    { lat: 28.64889860976805, lng: 77.13277858558044, status: "open" }  // Your given parking spot
+    { lat: 28.64889860976805, lng: 77.13277858558044, status: "open" }  // Your parking spot
   ];
 
-  // Loop through the parking spots and add them to the map
+  // Loop through parking spots and place markers
   spots.forEach((spot) => {
     const iconUrl = spot.status === "open"
       ? "https://i.imgur.com/CwNDGoH.png"  // Glowing green dot for open
@@ -35,16 +37,37 @@ function onLocationFound(e) {
       iconAnchor: [17, 34],
     });
 
-    // Add the parking spot marker to the map
+    // Add the parking spot marker
     L.marker([spot.lat, spot.lng], { icon: icon }).addTo(map);
   });
 }
 
-// Function to handle errors in getting the user's location
+// Handle errors when the location can't be found
 function onLocationError(e) {
-  alert("Could not get your location. Please ensure location services are enabled.");
+  alert("Could not get your location. Please make sure location services are enabled.");
 }
 
-// Add event listeners to handle location found or error
+// Add event listeners for location found and errors
 map.on('locationfound', onLocationFound);
 map.on('locationerror', onLocationError);
+
+// Automatically locate the user when the map loads
+map.locate({ setView: true, maxZoom: 16 });
+
+// Create the recenter button and add it to the map
+const recenterButton = L.control({ position: 'bottomright' });
+
+recenterButton.onAdd = function() {
+  const div = L.DomUtil.create('div', 'recenter-btn');
+  div.innerHTML = '<button>Recenter</button>';
+  div.className = 'recenter-btn-container';
+
+  div.onclick = function() {
+    locateUser(); // Re-center the map when clicked
+  };
+
+  return div;
+};
+
+// Add the recenter button to the map
+recenterButton.addTo(map);
