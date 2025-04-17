@@ -20,8 +20,8 @@ function onLocationFound(e) {
   // Loop through parking spots and place markers
   spots.forEach((spot) => {
     const iconUrl = spot.status === "open"
-      ? "images/open-parking.png.png"  // Glowing green dot for open
-      : "images/closed-parking.png.png"; // Glowing red dot for closed
+      ? "https://drive.google.com/file/d/1d8fSb32Osx5Evz3BEHMOEdjupFa9lQuI/view?usp=drive_link"  // Glowing green dot for open
+      : "https://drive.google.com/file/d/1PYSwm65SiIzNNe0bGMgea1uPRJwHAV-p/view?usp=drive_link"; // Glowing red dot for closed
 
     const icon = L.icon({
       iconUrl: iconUrl,
