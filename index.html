@@ -1,17 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Free Parking Map</title>
-  <link rel="stylesheet" href="style.css">
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parking Spot Map</title>
+  <!-- Include Leaflet.js -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    /* Add the CSS for the map and button */
+    #map { height: 100vh; width: 100%; }
+    
+    .recenter-btn-container {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+
+    .recenter-btn-container button {
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .recenter-btn-container button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
-  <h2>🅿️ Find Open Parking Spots</h2>
-  <div id="map" style="height: 100vh; width: 100vw;"></div>
+  <div id="map"></div>
+
+  <!-- Include Leaflet.js -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <!-- Include your custom script -->
   <script src="script.js"></script>
 </body>
 </html>
