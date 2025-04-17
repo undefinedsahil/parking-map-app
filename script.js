@@ -6,6 +6,9 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 18,
 }).addTo(map);
 
+// Variable to keep track of the user's marker
+let userMarker = null;  // Will hold the marker object
+
 // Function to locate and center the map to the user's location
 function locateUser() {
   map.locate({ setView: true, maxZoom: 16 });
@@ -13,8 +16,13 @@ function locateUser() {
 
 // Handle when the location is found
 function onLocationFound(e) {
+  // If there was already a user marker, remove it
+  if (userMarker) {
+    map.removeLayer(userMarker);
+  }
+
   // Place a marker for the user's current location
-  const userMarker = L.marker(e.latlng).addTo(map);
+  userMarker = L.marker(e.latlng).addTo(map);
   userMarker.bindPopup("📍 You are here").openPopup();
 
   // Center map to the user's location
